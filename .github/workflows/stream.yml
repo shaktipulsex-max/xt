@@ -1,20 +1,17 @@
-name: 24/7 YouTube Stream
+import time
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 */5 * * *'
+print("24/7 Loop Code Started...")
 
-jobs:
-  stream:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Install FFmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
-
-      - name: Start Live Stream
-        run: |
-          ffmpeg -re -stream_loop -1 -i lofi.mp3 -loop 1 -i thumbnail.jpg -c:v libx264 -preset ultrafast -tune stillimage -b:v 2500k -maxrate 2500k -bufsize 5000k -pix_fmt yuv420p -g 60 -c:a aac -b:a 128k -ar 44100 -shortest -f flv rtmp://a.rtmp.youtube.com/live2/${{ secrets.STREAM_KEY }}
+while True:
+    try:
+        # Yahan aapka main code / task aayega
+        print("Loop chal raha hai, kaam ho raha hai...")
+        
+        # Jitni der ka gap rakhna ho (jaise 10 seconds)
+        time.sleep(10)
+        
+    except Exception as e:
+        # Agar beech mein koi error aayi toh code crash nahi hoga, loop chalta rahega
+        print(f"Error aayi thi: {e}")
+        time.sleep(5)
+        continue
